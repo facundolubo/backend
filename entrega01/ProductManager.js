@@ -1,36 +1,46 @@
 module.exports = class ProductManager {
     //make code a private property with an autoincrement id
-    static counter = 0;
+    _counter = 0;
+    _products = [];
 
     constructor() {
-        this.products = [];
+        this._products = [];
+        this._counter = 0;
     }
 
+    incrementId() {
+        this._counter++;
+    }
     getProducts() {
-        return this.products;
+        return this._products;
     }
 
-    addProduct(title, description, price, thumbnail, code, stock) {
-        if (this.products.find(product => product.code === code)) {
-            throw new Error("Product code already exists");
+    addProduct({title, description, price, thumbnail, code, stock}) {
+        if (this._products.find(product => product.code === code)) {
+            console.log("El producto ya existe");
+            return;
         }
-
-        const product = {
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock,
-            id: ProductManager.counter++,
-        };
-
-        this.products.push(product);
-
-        return product;
+        else {
+            const product = {
+                title,
+                description,
+                price,
+                thumbnail,
+                code,
+                stock,
+                id: this._counter,
+            };
+            this._products.push(product);
+            this.incrementId();
+        }
     }
 
     getProductById(id) {
-        return this.products.find(product => product.id === id);
+        let product = this._products.find(product => product.id === id)
+        if (!product) {
+            console.log("El producto con id " + id + " no existe");
+            return null;
+        }
+        else return product;
     }
 }
