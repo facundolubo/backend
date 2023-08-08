@@ -1,4 +1,4 @@
-module.exports = class ProductManager {
+class ProductManager {
     //make code a private property with an autoincrement id
     _counter = 0;
     _products = [];
@@ -44,3 +44,5 @@ module.exports = class ProductManager {
         else return product;
     }
 }
+
+export default ProductManager;

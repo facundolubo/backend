@@ -1,6 +1,5 @@
 import fs from "fs";
-
-const ProductManager = require("./ProductManager");
+import ProductManager from "./ProductManager.js";
 
 const productManager = new ProductManager();
 
