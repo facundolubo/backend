@@ -1,3 +1,5 @@
+import fs from "fs";
+
 const ProductManager = require("./ProductManager");
 
 const productManager = new ProductManager();
