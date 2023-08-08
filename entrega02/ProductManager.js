@@ -22,8 +22,8 @@ class ProductManager {
     
     */
     #path;
-    _counter = 0;
-    _products = [];
+    _counter;
+    _products;
 
     constructor(path) {
         this.#path = path;
@@ -40,10 +40,14 @@ class ProductManager {
     incrementId() {
         this._counter++;
     }
-    getProducts() {
-        return this._products; 
+    async getProducts() {
+        /*
+        Si bien no tiene sentido buscar en memoria secundaria por como esta implementado
+        lo hago para responder a la consigna
+        */
+       return await fs.promises.readFile(this.#path, "utf-8"); 
     }
-    async getProductById(id) {
+    getProductById(id) {
         let product = this._products.find(product => product.id === id);
         if (!product) {
             console.log("El producto con id " + id + " no existe");
@@ -68,8 +72,8 @@ class ProductManager {
                 id: this._counter,
             };
             this._products.push(product); // Agrego el codigo al array.
-            await fs.promises.writeFile(this.#path, JSON.stringify(this._products));
             this.incrementId();
+            await fs.promises.writeFile(this.#path, JSON.stringify(this._products));
         }
     }
 }
