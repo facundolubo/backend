@@ -1,7 +1,7 @@
 import fs from "fs";
 import ProductManager from "./ProductManager.js";
 
-const productManager = new ProductManager();
+const productManager = new ProductManager("products.json"); // le pasamos el path
 
 const product1 = {
   title: "producto 1",
