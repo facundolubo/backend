@@ -5,20 +5,6 @@ class ProductManager {
 
       PD: No pude modificar un JSON utilizando append. Los JSON me quedaban mal formateados
       Por ende termine creando una lista de los productos en la principal, aunque no quería...
-      
-      
-    NO PUDE: 
-    En MEMORIA PRINCIPAL almacena un array de codigos de los productos. Dado que es
-    la unica condicion que se chequea para agregar un nuevo producto, y suponiendo
-    que es mas frecuente agregar productos que buscarlos por id, por razones
-    de eficiencia no convendría ni tener un array de productos en memoria principal
-    dado que solo se necesita el subcampo 'code', asi como tampoco convendria
-    buscar un codigo en memoria secundaria por ser este un proceso lento).
-    
-    En MEMORIA SECUNDARIA se almacenan los productos en formato JSON.
-    Dado que solo se puede agregar de a 1 (un) producto por vez:
-      a) El nuevo codigo se pushea
-      b) El nuevo producto se almacenan en memoria secundaria utilizando append.
     
     */
     #path;

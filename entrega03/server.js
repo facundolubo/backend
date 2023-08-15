@@ -1,5 +1,5 @@
 import express from 'express';
-import ProductManager from './ProductManager';
+import productManager from './app';
 
 const server = express();
 
@@ -9,8 +9,20 @@ server.get('/', (req, res) => {
 
 // a modo de ejemplo para devolver json
 server.post('/newproduct', async (req, res) => {
-  await ProductManager.addProduct(req.body);
+  /* 
+  Args: Json with {title, description, price, thumbnail, code, stock}
+  */
+  try {
+    await productManager.addProduct(req.body);
+    res.send("Product added");
+    res.send(productManager.getProductById(req.body.id))
+  }
+  catch {
+    res.send("Un error ocurrió");
+    res.status(400);
+  }
 })
+
 server.get('/products', async (req, res) => {
   const result = await ProductManager.getProducts();
   if (req.query.limit < 10 || req.query.limit === undefined

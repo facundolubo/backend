@@ -48,13 +48,13 @@ class ProductManager {
         */
        return await fs.promises.readFile(this.#path, "utf-8"); 
     }
-    getProductById(id) {
+    async getProductById(id) {
         let product = this._products.find(product => product.id === id);
         if (!product) {
             console.log("El producto con id " + id + " no existe");
             return null;
         }
-        else return product;
+        else return await product;
     }
     
     async addProduct({title, description, price, thumbnail, code, stock}) {
