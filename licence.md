@@ -1,1 +1,1 @@
-This is a code of conduct
+This is a licence.

@@ -1,1 +1,1 @@
-This is a contributing
+This is a contributing.
