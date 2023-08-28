@@ -4,6 +4,8 @@ import ProductManager from '../src/ProductManager.js'
 const router = Router()
 const productManager = new ProductManager('./products.json')
 
+/* según convenciones, las rutas deberían ser /api/<version> ej: /api/v1 */
+
 router.get('/', async (req, res) => {
     const result = await productManager.getProducts()
     const limit = req.query.limit
