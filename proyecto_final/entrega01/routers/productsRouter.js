@@ -2,7 +2,7 @@ import {Router } from 'express'
 import ProductManager from '../src/ProductManager.js'
 
 const router = Router()
-const productManager = new ProductManager('./products.json')
+const productManager = new ProductManager('.data/products.json')
 
 /* según convenciones, las rutas deberían ser /api/<version> ej: /api/v1 */
 
