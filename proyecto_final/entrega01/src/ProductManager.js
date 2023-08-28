@@ -1,4 +1,5 @@
 import fs from "fs";
+
 class ProductManager {
     /*
     Esta clase maneja la creacion de productos.
@@ -30,6 +31,7 @@ class ProductManager {
         this._counter = 0;
         this._products = [];
         this.#init();
+        console.log(path);
     }
 
     #init() {
