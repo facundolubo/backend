@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
     res.status(200).json({status: 'ok', data: result.slice(0, limit)})
 })
 router.get('/:id', async (req, res) => {
-    const result = users.find(user => user.id === parseInt(req.params.id))
+    const result = await productManager.getProductById(parseInt(req.params.id))
     if (result) res.status(200).json({status: 'ok', data: result})
-    else res.status(404).json({status: 'error', message: 'User not found'})
+    else res.status(404).json({status: 'error', message: 'Product not found'})
 })
 
 export default router
