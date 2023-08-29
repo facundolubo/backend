@@ -31,7 +31,7 @@ class ProductManager {
         this._counter = 0;
         this._products = [];
         this.#init();
-        console.log(path);
+        console.log('El path es: ' + path);
     }
 
     #init() {
@@ -48,7 +48,11 @@ class ProductManager {
         lo hago para responder a la consigna. Supongo que más adelante buscaremos en una BD 
         y allí si cobra sentido buscar en memoria secundaria.
         */
-       return await fs.promises.readFile(this.#path, "utf-8"); 
+       if (fs.promises.readFile(this.#path, "utf-8").length === 0) {
+           console.log ("No hay productos");
+           return null;
+       }
+       else return await fs.promises.readFile(this.#path, "utf-8"); 
     }
     async getProductById(id) {
         let product = this._products.find(product => product.id === id);
