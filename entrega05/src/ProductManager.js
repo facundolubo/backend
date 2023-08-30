@@ -74,12 +74,14 @@ class ProductManager {
                 description,
                 price,
                 thumbnail,
+                file,
                 code,
                 stock,
                 id: this._counter,
             };
             this._products.push(product); // Agrego el codigo al array.
             this.incrementId();
+            // estoy sobrescribiendo el archivo porque no pude usar append manteniendo el formato JSON
             await fs.promises.writeFile(this.#path, JSON.stringify(this._products));
         }
     }
