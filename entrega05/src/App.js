@@ -2,9 +2,18 @@ import express from 'express'
 import compression from 'compression'
 import ProductsRouter from '../routers/ProductsRouter.js'
 import cors from 'cors'
+import handlebars from 'express-handlebars'
 
 const DEVMODE = (process.env.NODE_ENV !== 'production')
 const App = express()
+
+//Handlebars config
+
+App.engine('handlebars', handlebars.engine())
+App.set('view engine', 'handlebars')
+App.set('views', './views')
+
+
 App.use(cors())
 App.use(compression())
 
