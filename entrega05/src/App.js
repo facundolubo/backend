@@ -10,16 +10,10 @@ const App = express()
 //Handlebars config
 
 App.engine('handlebars', handlebars.engine())
-
 App.set('view engine', 'handlebars')
 App.set('views', './src/views')
 
-//hago un puente a la ruta '/home' 
-App.use('/', (req, res) => {
-    res.render('home')
-})
-
-/*
+// CORS y Compresión para http
 App.use(cors())
 App.use(compression())
 
@@ -30,6 +24,12 @@ App.use(express.json())
 App.use(express.urlencoded({ extended: true }))
 
 
+//Endpoints
+
+App.use('/', (req, res) => {
+    res.render('home')
+})
+
 App.use('/products', ProductsRouter)
 
 // Dar menos información 
@@ -39,7 +39,7 @@ App.disable('x-powered-by')
 App.use((err, req, res, next) => {
     res.status(404).send('Not found')
 })
-*/
+
 App.listen(3000, () => {
     if (DEVMODE) {
         console.log('App in Development mode')
