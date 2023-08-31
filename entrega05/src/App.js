@@ -3,6 +3,7 @@ import compression from 'compression'
 import ProductsRouter from '../routers/ProductsRouter.js'
 import cors from 'cors'
 import handlebars from 'express-handlebars'
+import { Server } from 'socket.io'
 
 const DEVMODE = (process.env.NODE_ENV !== 'production')
 const App = express()
@@ -40,11 +41,24 @@ App.use((err, req, res, next) => {
     res.status(404).send('Not found')
 })
 
-App.listen(3000, () => {
+const httpServer = App.listen(3000, () => {
     if (DEVMODE) {
         console.log('App in Development mode')
     }
     console.log('App listening on port 3000!')
+})
+
+const socketServer = new Server(httpServer, {
+    cors: {
+        origin: '*'
+    }
+})
+
+socketServer.on('connection', (clientSocket) => {
+    console.log('Socket establecido')
+    clientSocket.on('message', (data) => {
+        console.log(data)
+    })
 })
 
 export default App
