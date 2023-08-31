@@ -54,10 +54,12 @@ const socketServer = new Server(httpServer, {
     }
 })
 
+let log = []
 socketServer.on('connection', (clientSocket) => {
     console.log('Socket establecido')
-    clientSocket.on('message', (data) => {
-        console.log(data)
+    clientSocket.on('message', data => {
+        log.push(data)
+        clientSocket.emit('history', log)
     })
 })
 
