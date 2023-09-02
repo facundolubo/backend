@@ -1,3 +1,6 @@
+import Swal from "sweetalert2"
+
+window.alert('Estoy leyendo el script')
 Swal.fire({
   title: 'Authentication',
   input: 'text',

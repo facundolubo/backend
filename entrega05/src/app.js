@@ -46,6 +46,14 @@ app.use('/', (req, res) => {
         layoutDir: __dirname + '/views/layouts',
         partialsDir: __dirname + '/views/partials',
     })
+    /*
+    res.render('addProductForm', {
+        title: 'Add Product',
+        layout: 'main',
+        layoutDir: __dirname + '/views/layouts',
+        partialsDir: __dirname + '/views/partials',
+    })
+    */
 })
 
 app.use('/products', ProductsRouter)
