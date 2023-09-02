@@ -1,23 +1,9 @@
-<div class="container">
-<h1>Bienvenidos a mi página de productos</h1>
-<h2>Añadir un nuevo producto</h2>
-<form action="/products" method="post" enctype="multipart/form-data">
-    <!--FIELDS OF A PRODUCT 
-        title,
-        description,
-        price,
-        thumbnail,
-        file,
-        code,
-        stock,
-    -->   
-    <input type="text" name="title" placeholder="title">
-    <input type="text" name="description" placeholder="description">
-    <input type="text" name="price" placeholder="price">
-    <input type="text" name="thumbnail" placeholder="thumbnail">
-    <input type="file" name="file" placeholder="file">
-    <input type="text" name="code" placeholder="code">
-    <input type="text" name="stock" placeholder="stock">
-    <button type="submit">Añadir Producto</button>       
-</form>
+<h1>Super Chat de Coder</h1>
+<div>
+    <i id="username"></i><input id="chatbox" type="text">
 </div>
+<div id="log"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../public/js/index.js"></script>
