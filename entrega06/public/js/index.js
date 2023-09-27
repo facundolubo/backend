@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
 /* read user and password securely*/
-
 const fs = await import('fs');
 const fileContents = await fs.readFileSync('../../../mongo/auth.txt', 'utf8');
 const USER = fileContents.split('\n')[0]
