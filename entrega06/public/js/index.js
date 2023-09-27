@@ -1,10 +1,18 @@
 import mongoose from 'mongoose'
 
+//import { products } from "../../data/Storage.js";
+
 /* read user and password securely*/
 const fs = await import('fs');
 const fileContents = await fs.readFileSync('../../../mongo/auth.txt', 'utf8');
 const USER = fileContents.split('\n')[0]
 const PASSWORD = fileContents.split('\n')[1]
+
+/* read json file */
+
+const jsonFile = fs.readFileSync('/home/facundol/Documents/Computacion/coderhouse/backend/entrega06/data/products.json',
+    'utf-8')
+const products = JSON.parse(jsonFile);
 
 const productsSchema = new mongoose.Schema({
     title: String,
@@ -20,11 +28,21 @@ const productsSchema = new mongoose.Schema({
 const productsDAO = mongoose.model('products', productsSchema)
 
 try {
-    await mongoose.connect(`mongodb+srv://${USER}:${PASSWORD}@cluster0.jv8xqu9.mongodb.net/`)
-    console.log('Connected')
+    await mongoose.connect(`mongodb+srv://${USER}:${PASSWORD}@cluster0.jv8xqu9.mongodb.net/`, 
+    {
+        dbName: 'coder',
+    })
+    console.log('DB Connected')
+    console.log(products)
+    for (let i = 0; i < products.length; i++) {
+        const newProduct = await productsDAO.create(
+            products[i]
+        )
+        console.log(newProduct)
+    }
 } catch (error) {
     console.log(error.message)
-    console.log("Se intentó loguear con user " + USER + " y password " + PASSWORD)
+    //console.log("Se intentó loguear con user " + USER + " y password " + PASSWORD)
 }
 
 export {productsDAO }
