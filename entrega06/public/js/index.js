@@ -33,10 +33,9 @@ try {
         dbName: 'coder',
     })
     console.log('DB Connected')
-    console.log(products)
-    for (let i = 0; i < products.length; i++) {
+    for (const product of products) {
         const newProduct = await productsDAO.create(
-            products[i]
+            product
         )
         console.log(newProduct)
     }
