@@ -1,18 +1,14 @@
 import mongoose from 'mongoose'
 
-//import { products } from "../../data/Storage.js";
 
 /* read user and password securely*/
 const fs = await import('fs');
-const fileContents = await fs.readFileSync('../../../mongo/auth.txt', 'utf8');
+const fileContents = await fs.readFileSync('/home/facundol/Documents/Computacion/mongo/auth.txt', 'utf8');
 const USER = fileContents.split('\n')[0]
 const PASSWORD = fileContents.split('\n')[1]
 
 /* read json file */
 
-const jsonFile = fs.readFileSync('/home/facundol/Documents/Computacion/coderhouse/backend/entrega06/data/products.json',
-    'utf-8')
-const products = JSON.parse(jsonFile);
 
 const productsSchema = new mongoose.Schema({
     title: String,
@@ -22,7 +18,11 @@ const productsSchema = new mongoose.Schema({
     file: String,
     code: String,
     stock: Number,
-    id: Number
+    /* 
+    Entre llaves se agregan propiedades
+    De todas maneras, conviene que esto se valide en el frontend
+    */
+    id: {type: Number, required: true, unique: true}
 })
 
 const productsDAO = mongoose.model('products', productsSchema)

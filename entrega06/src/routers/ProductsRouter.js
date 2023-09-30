@@ -1,7 +1,9 @@
 import express from 'express'
-import { products } from '../data/Storage.js'
-import uploader from '../data/Storage.js'
 const router = express.Router()
+
+const jsonFile = fs.readFileSync('/home/facundol/Documents/Computacion/coderhouse/backend/entrega06/data/products.json',
+    'utf-8')
+const products = JSON.parse(jsonFile);
 
 router.get('/', (req, res) => res.json({ products }))
 router.get('/:id', (req, res) => {
