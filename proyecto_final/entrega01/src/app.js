@@ -10,6 +10,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/products', productsRouter)
+app.use('/carts', productsRouter)
 
 app.listen(3000, () => {
     if (DEVMODE) {

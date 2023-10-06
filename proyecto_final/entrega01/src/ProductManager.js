@@ -1,26 +1,13 @@
 import fs from "fs";
+import Product from "./Product.js";
 
 class ProductManager {
     /*
     Esta clase maneja la creacion de productos.
 
-      PD: No pude modificar un JSON utilizando append. Los JSON me quedaban mal formateados
-      Por ende termine creando una lista de los productos en la principal, aunque no quería...
+    PD: No pude modificar un JSON utilizando append. Los JSON me quedaban mal formateados
+    Por ende termine creando una lista de los productos en la memoria principal, aunque no quería...
       
-      
-    NO PUDE: 
-    En MEMORIA PRINCIPAL almacena un array de codigos de los productos. Dado que es
-    la unica condicion que se chequea para agregar un nuevo producto, y suponiendo
-    que es mas frecuente agregar productos que buscarlos por id, por razones
-    de eficiencia no convendría ni tener un array de productos en memoria principal
-    dado que solo se necesita el subcampo 'code', asi como tampoco convendria
-    buscar un codigo en memoria secundaria por ser este un proceso lento).
-    
-    En MEMORIA SECUNDARIA se almacenan los productos en formato JSON.
-    Dado que solo se puede agregar de a 1 (un) producto por vez:
-      a) El nuevo codigo se pushea
-      b) El nuevo producto se almacenan en memoria secundaria utilizando append.
-    
     */
     #path;
     _counter;
@@ -39,7 +26,7 @@ class ProductManager {
             fs.writeFileSync(this.#path, "");
         }
     }
-    incrementId() {
+    _incrementId() {
         this._counter++;
     }
     async getProducts() {
@@ -63,23 +50,14 @@ class ProductManager {
         else return await product;
     }
     
-    async addProduct({title, description, price, thumbnail, code, stock}) {
+    async addProduct(product) {
         if (this._products.find(product => product.code === code)) {
             console.log("El producto con codigo " + code + " ya existe");
             return null;
         }
         else {
-            const product = {
-                title,
-                description,
-                price,
-                thumbnail,
-                code,
-                stock,
-                id: this._counter,
-            };
-            this._products.push(product); // Agrego el codigo al array.
-            this.incrementId();
+            this._products.push(Product); // Agrego el codigo al array.
+            this._incrementId();
             await fs.promises.writeFile(this.#path, JSON.stringify(this._products));
         }
     }
