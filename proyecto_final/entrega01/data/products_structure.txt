@@ -1,0 +1,9 @@
+product = {
+    title,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock,
+    id: this._counter
+}

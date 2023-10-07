@@ -9,15 +9,18 @@
     <h1> Welcome to the API</h1>
     <h2> Get all products</h2>
     <form action="/products" method="GET">
+        <label for="limit"> Limit </label>
+        <input type="text" name="limit">
         <input type="submit" value="Submit">
     </form>
     <h2> Get a product by ID</h2>
     <form action="/products" method="GET">
+        <label for="id"> ID </label>
         <input type="text" name="id">
         <input type="submit" value="Submit">
     </form>
     <h2> Create a product </h2>
-    <form action="/productos" method="POST">
+    <form action="/products" method="POST">
         <label for="title">Title</label>
         <input type="text" name="title">
         <label for="description">Description</label>
@@ -28,6 +31,8 @@
         <input type="text" name="price">
         <label for="stock">Stock</label>
         <input type="text" name="stock">
+        <label for="thumbnail">Thumbnail</label>
+        <input type="text" name="thumbnail">    
         <input type="submit" value="Submit">    
     </form>  
 </body>

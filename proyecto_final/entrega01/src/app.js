@@ -4,18 +4,19 @@ import ProductManager from './ProductManager.js'
 import cors from 'cors'
 
 const app = express()
-const DEVMODE = (process.env.NODE_ENV !== 'production')
 
 app.use(cors())
+
 app.use(express.json())
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/products', productsRouter)
 app.use('/carts', productsRouter)
 
+// const productsManager = new ProductManager('/home/facundol/Documents/Computacion/coderhouse/backend/proyecto_final/entrega01/data/products.json')
+
 app.listen(3000, () => {
-    if (DEVMODE) {
-        console.log('App in Development mode')
-    }
     console.log('App listening on port 3000!')
 })
 

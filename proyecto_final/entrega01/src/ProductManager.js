@@ -1,5 +1,4 @@
 import fs from "fs";
-import Product from "./Product.js";
 
 class ProductManager {
     /*
@@ -11,7 +10,6 @@ class ProductManager {
     */
     #path;
     _counter;
-    _products;
 
     constructor(path) {
         this.#path = path;
@@ -19,28 +17,33 @@ class ProductManager {
         this._products = [];
         this.#init();
         console.log('El path es: ' + path);
+        console.log('Product manager inicializado con estos productos: ' + '\n');
     }
 
-    #init() {
+    async #init() {
         if (!fs.existsSync(this.#path)) {
-            fs.writeFileSync(this.#path, "");
+            await fs.writeFileSync(this.#path, "");
+        }
+        else {
+            const rawString = await fs.promises.readFile(this.#path, "utf-8");
+            const json = JSON.parse(rawString);
+            this._products = json.products;
+            this._counter = json.counter;
+            console.log(this._products);
         }
     }
+
     _incrementId() {
         this._counter++;
     }
-    async getProducts() {
-        /*
-        Si bien no tendría sentido buscar en memoria secundaria por como esta implementado,
-        lo hago para responder a la consigna. Supongo que más adelante buscaremos en una BD 
-        y allí si cobra sentido buscar en memoria secundaria.
-        */
-       if (fs.promises.readFile(this.#path, "utf-8").length === 0) {
-           console.log ("No hay productos");
-           return null;
-       }
-       else return await fs.promises.readFile(this.#path, "utf-8"); 
+    getProducts(limit) {
+        if (limit === undefined || limit === null) {
+            limit = 10;
+            console.log(limit)
+        }
+        return this._products.slice(0, limit);
     }
+    
     async getProductById(id) {
         let product = this._products.find(product => product.id === id);
         if (!product) {
@@ -50,15 +53,28 @@ class ProductManager {
         else return await product;
     }
     
-    async addProduct(product) {
-        if (this._products.find(product => product.code === code)) {
+    async addProduct({title, description, price, thumbnail, code, stock}) {
+        /* id !== code */
+        if (code !== '' && code !== undefined && this._products.find(product => product.code === code)) {
             console.log("El producto con codigo " + code + " ya existe");
             return null;
         }
         else {
-            this._products.push(Product); // Agrego el codigo al array.
+            const product = {
+                title,
+                description,
+                price,
+                thumbnail,
+                code,
+                stock,
+                id: this._counter
+            }
+            this._products.push(product);
             this._incrementId();
-            await fs.promises.writeFile(this.#path, JSON.stringify(this._products));
+            await fs.promises.writeFile(this.#path, JSON.stringify(this._products, null, 2), "utf-8");
+            // Agrego el codigo al array.
+            /* print product added */
+            return product;
         }
     }
 }
