@@ -2,7 +2,7 @@
 //esta linea de import me rompía todo
 //import Swal from "sweetalert2"
 
-window.alert('Estoy leyendo el script')
+//window.alert('Estoy leyendo el script')
 
 /*
 Swal.fire({
