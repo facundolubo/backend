@@ -1,7 +1,4 @@
 import express from 'express'
-import compression from 'compression'
-import ProductsRouter from '../routers/ProductsRouter.js'
-import cors from 'cors'
 import handlebars from 'express-handlebars'
 import { Server } from 'socket.io'
 
@@ -27,18 +24,16 @@ app.engine('handlebars', handlebars.engine(
 app.set('view engine', 'handlebars')
 app.set('views', './src/views')
 
-// Compresión para http
-app.use(compression())
+//Less info
+app.disable('x-powered-by')
 
+// public
+app.use(express.static('./src/public'))
 //Para poder enviar JSON
 app.use(express.json())
-
-// Para poder enviar archivos?
+// Para poder enviar form
 app.use(express.urlencoded({ extended: true }))
-
-
 //Endpoints
-
 app.use('/', (req, res) => {
     res.render('home', {
         title: 'Home' ,
@@ -56,11 +51,6 @@ app.use('/', (req, res) => {
     */
 })
 
-app.use('/products', ProductsRouter)
-
-// Dar menos información 
-app.disable('x-powered-by')
-
 // Standarize status messages. E.g. 404
 app.use((err, req, res, next) => {
     res.status(404).send('Not found')
@@ -73,10 +63,8 @@ const httpServer = app.listen(3000, () => {
     console.log('App listening on port 3000!')
 })
 
-// websocket server
 const socketServer = new Server(httpServer)
 
-// ChatBox
 let log = []
 
 socketServer.on('connection', (socketClient) => {
