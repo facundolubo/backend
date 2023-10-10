@@ -1,4 +1,5 @@
-const CartManager = require('./../helpers/CartManager')
+import CartManager from './../helpers/CartManager.js'
+// Atento que no esta usando CartManager
 
 // Get a cart from server
 const getProductsCartFromServer = async (req, res) => {
@@ -15,4 +16,9 @@ const addProductCartOnServer = async (req, res) => {
     res.send('POST one product on cart /carts')
 }
 
-module.exports = {getProductsCartFromServer, addCartOnServer, addProductCartOnServer}
+const cartController = {
+    getProductsCartFromServer,
+    addCartOnServer,
+    addProductCartOnServer
+}
+export default cartController
