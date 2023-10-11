@@ -1,24 +1,20 @@
 {
-  "name": "entrega01",
+  "name": "entrega05",
   "version": "1.0.0",
-  "description": "Primer Entrega Backend",
-  "main": "index.js",
+  "description": "Entrega Websockets + Handlebars",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/facundolubo/backend.git"
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "author": "Facundo Lubo",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/facundolubo/backend/issues"
-  },
-  "homepage": "https://github.com/facundolubo/backend#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "nodemon": "^3.0.1"
+    "express-handlebars": "^7.1.2",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2",
+    "sweetalert2": "^11.7.27"
   }
 }
