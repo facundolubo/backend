@@ -1,11 +1,10 @@
 import { Router } from 'express'
-
 import productController from '../controllers/ProductController.js';
 
 const router = Router()
 
 // GET  /api/products[?:limit=N] 
-router.get('/', productController.getProductsFromServer )
+router.get('/', productController.getProductsFromServer)
 
 // GET 	/api/products/:pid  
 router.get('/:pid', productController.getProductFromServer )
@@ -18,5 +17,11 @@ router.put('/:pid', productController.updProductOnServer )
 
 // DELETE /api/products/:pid
 router.delete('/:pid', productController.delProductOnServer)
-
+/*
+//Para debuguear
+router.use((req, res, next) => {
+    console.log('Time: ', Date.now())
+    next()
+  })
+*/ 
 export default router

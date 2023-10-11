@@ -1,7 +1,9 @@
 class ListProducts{
     constructor(){
         this.list = []
+        console.log('constructor de ListProducts')
     }
+    
 
     /* Method that gets the length of the list of products. */
     getLength = () => this.list.length

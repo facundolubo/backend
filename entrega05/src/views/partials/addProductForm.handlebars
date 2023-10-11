@@ -1,23 +1,36 @@
 <div class="container" id="form-product">
-<h1>Bienvenidos a mi página de productos</h1>
-<h2>Añadir un nuevo producto</h2>
-<form action="/products" method="post" enctype="multipart/form-data">
-    <!--FIELDS OF A PRODUCT 
-        title,
-        description,
-        price,
-        thumbnail,
-        file,
-        code,
-        stock,
-    -->   
-    <input type="text" name="title" placeholder="title">
-    <input type="text" name="description" placeholder="description">
-    <input type="text" name="price" placeholder="price">
-    <input type="text" name="thumbnail" placeholder="thumbnail">
-    <input type="file" name="file" placeholder="file">
-    <input type="text" name="code" placeholder="code">
-    <input type="text" name="stock" placeholder="stock">
-    <button type="submit">Añadir Producto</button>       
-</form>
+    <h1>Bienvenidos a la pagina de productos de Facundo Lubo</h1>
+    <h2>Añadir un nuevo producto</h2>
+    <form action="/products" method="post" enctype="multipart/form-data">
+        <th scope="col">Titulo</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Código</th>
+        <th scope="col">Thumbnail</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Status</th>
+        <th scope="col">ID</th>
+        <!--FIELDS OF A PRODUCT 
+            title,
+            description,
+            price,
+            code,
+            thumbnails,
+            stock,
+            category,
+            status,
+            id
+        -->   
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="description" placeholder="description">
+        <input type="text" name="price" placeholder="price">
+        <input type="text" name="code" placeholder="code">
+        <input type="text" name="thumbnails" placeholder="thumbnails">
+        <input type="text" name="stock" placeholder="stock">
+        <input type="text" name="category" placeholder="category">
+        <input type="text" name="status" placeholder="status">
+        <input type="hidden" name="id" placeholder="id">
+        <button type="submit">Añadir Producto</button>       
+    </form>
 </div>

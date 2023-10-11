@@ -1,6 +1,10 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
 import { Server } from 'socket.io'
+//Endpoints
+import productRouter from './router/products.router.js'
+import cartRouter from './router/carts.router.js'
+import viewRouter from './router/view.router.js'
 
 // Para poder usar dirname
 import { dirname } from 'path';
@@ -15,58 +19,70 @@ const app = express()
 
 //Handlebars config
 
-app.engine('handlebars', handlebars.engine(
-    {
-        layoutsDir: __dirname + '/views/layouts',
+app.engine('handlebars', handlebars.engine())
+app.set('view engine', 'handlebars')
+app.set('views', './src/views')
+
+/*
+app.use('/', (req, res) => {
+    res.render('home', {
+        title: 'home',
+        layout: 'main',
+        layoutDir: __dirname + '/views/layouts',
         partialsDir: __dirname + '/views/partials',
-    }
-    ))
-    app.set('view engine', 'handlebars')
-    app.set('views', './src/views')
+    })
+
     
-    //Less info
-    app.disable('x-powered-by')
-    
-    // public
-    app.use(express.static('./src/public'))
-    //Para poder enviar JSON
-    app.use(express.json())
-    // Para poder enviar form
-    app.use(express.urlencoded({ extended: true }))
-    //Endpoints
-    app.use('/', (req, res) => {
-        res.render('home', {
-            title: 'Home' ,
-            layout: 'main',
-            layoutDir: __dirname + '/views/layouts',
-            partialsDir: __dirname + '/views/partials',
-        })
-        /*
-        res.render('addProductForm', {
-            title: 'Add Product',
-            layout: 'main',
-            layoutDir: __dirname + '/views/layouts',
-            partialsDir: __dirname + '/views/partials',
-        })
-        */
+    res.render('addProductForm', {
+        title: 'addProductForm',
+        layout: 'main',
+        layoutDir: __dirname + '/views/layouts',
+        partialsDir: __dirname + '/views/partials',
+        product: {
+            title: 'das',
+            description: '',
+            price: '',
+            thumbnail: '',
+            code: '',
+            stock: ''
+        }  
     })
     
-    
-import productRouter from './router/products.router.js'
-import cartRouter from './router/carts.router.js'
+})
+*/
+//Less info
+app.disable('x-powered-by')
+// public
+app.use(express.static('./src/public'))
+//Para poder enviar JSON
+app.use(express.json(
+    {
+        extended: true,
+        parameterLimit: 10240000,
+        type: 'application/json',
+    }
+))
+
+app.use(express.urlencoded({ extended: true }))
+
 
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
-
-// Standarize status messages. E.g. 404
-app.use((err, req, res, next) => {
-    res.status(404).send('Not found')
+app.use('/', viewRouter)
+/*
+const auxRouter = express.Router()
+auxRouter.use((req, res, next) => {
+    console.log('Time: ', Date.now())
+    next()
 })
-
+app.use(auxRouter)
+*/
 const httpServer = app.listen(3000, () => {
+    /*
     if (DEVMODE) {
         console.log('App in Development mode')
     }
+    */
     console.log('App listening on port 3000!')
 })
 

@@ -3,7 +3,8 @@ import ListCarts from './ListCarts.js'
 
 class CartManager {
     constructor(path) {
-        this.path = path
+        this.path = '/home/facundol/Documents/Computacion/coderhouse/backend/entrega05/data/carts.json'
+        console.log('CartManager instanciado')
     }
 
     /* Method that gets the content of the shopping carts file returns the following.
@@ -16,11 +17,9 @@ class CartManager {
         } catch (error) {
             return false
         }
-
         if (content === '') {
             return false
         }
-
         return content
     }
 
@@ -35,15 +34,28 @@ class CartManager {
         }
         return true
     }
+    getAllCarts = async () => {
+        console.log('CartManager.getAllCarts')
+        const content = await this.getContentFile()
+        console.log("Content length: " + content.length)
+        if (content === false) {
+            return false
+        }
 
+        const listCart = new ListCarts()
+        listCart.setList(content)
+
+        return listCart.getList()
+    
+    }
     /* Method that gets a shopping cart from the file, receives the id of the requested 
     shopping cart as a parameter, returns the following.
         An Object – If it finds the requested shopping cart.
         Undefined – If the requested shopping cart is not found.
         False – If the file is not found, or if the file exists, but is empty. */
     getCartById = async idCart => {
+        idCart = parseInt(idCart)
         const content = await this.getContentFile()
-
         if (content === false) {
             return false
         }

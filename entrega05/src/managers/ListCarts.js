@@ -1,6 +1,7 @@
 class ListCart {
 	constructor() {
 		this.list = []
+		console.log('ListCart instanciado')
 	}
 
 	/* Method that returns the length of the list of shopping carts. */
@@ -31,7 +32,8 @@ class ListCart {
 	/* Method that returns an item or shopping cart, uses the id property of 
 	the shopping cart to search for it, if it doesn't find it, it returns 
 	undefined. */
-	getElementById = id => this.list.find(ele => ele.id === id)
+	getElementById = id => this.list.find(ele => (ele.id === id))
+	
 
 	/* Method that adds a child element or product to the shopping cart, 
 	uses the shopping cart id and the product id to find the cart and add 
@@ -53,6 +55,9 @@ class ListCart {
 
 		return true
 	}
+
 }
+
+	
 
 export default ListCart
