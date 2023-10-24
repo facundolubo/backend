@@ -34,6 +34,7 @@ class CartManager {
         }
         return true
     }
+    
     getAllCarts = async () => {
         console.log('CartManager.getAllCarts')
         const content = await this.getContentFile()

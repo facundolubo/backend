@@ -44,6 +44,7 @@ const getCartFromServer = async (req, res) => {
         }
         return res.status(200).json(info)
     }
+    
     else {
         let info = {
             status: "error",
