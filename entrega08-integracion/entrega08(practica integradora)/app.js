@@ -6,11 +6,11 @@ import login_mongo from '../../../../mongo/login_mongo.js';
 
 
 await login_mongo();
-const app = express();
 
 const USER = process.env.MONGO_USER;
 const PASS = process.env.MONGO_PASS;
 
+const app = express();
 app.use(session({
     store: MongoStore.create({
         mongoUrl: `mongodb+srv://${USER}:${PASS}@cluster0.jv8xqu9.mongodb.net/`,
