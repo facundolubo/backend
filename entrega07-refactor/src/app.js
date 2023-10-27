@@ -5,21 +5,18 @@ import { Server } from 'socket.io'
 import productRouter from './router/products.router.js'
 import cartRouter from './router/carts.router.js'
 import viewRouter from './router/view.router.js'
-//para loguear mongo
+// Para loguear mongo con variables de entorno. La funcion retorna un objeto cliente. 
+// Se instancia "const client = await login_mongo();"
+// Tener presente que se deberia tener un solo cliente durante la vida de la applicacion debido a que es 'resource intensive'
 import login_mongo from '../../../../mongo/login_mongo.js';
 // Para poder usar dirname
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-
-await login_mongo();
-
-const USER = process.env.MONGO_USER;
-const PASS = process.env.MONGO_PASS;
-
+const mongoClient = await login_mongo();
 /// Environment variable
-const DEVMODE = (process.env.NODE_ENV !== 'production')
+//const DEVMODE = (process.env.NODE_ENV !== 'production')
 
 // Express
 const app = express()
