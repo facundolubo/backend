@@ -17,11 +17,5 @@ router.put('/:pid', productController.updProductOnServer )
 
 // DELETE /api/products/:pid
 router.delete('/:pid', productController.delProductOnServer)
-/*
-//Para debuguear
-router.use((req, res, next) => {
-    console.log('Time: ', Date.now())
-    next()
-  })
-*/ 
+
 export default router

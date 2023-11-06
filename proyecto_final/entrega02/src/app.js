@@ -1,6 +1,7 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
 import { Server } from 'socket.io'
+
 //Endpoints
 import productRouter from './router/products.router.js'
 import cartRouter from './router/carts.router.js'
@@ -9,6 +10,19 @@ import viewRouter from './router/view.router.js'
 // Para poder usar dirname
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import login_mongo from '../../../../../mongo/login_mongo.js';
+
+
+
+try {
+    const client = await login_mongo();
+    await client.connect();
+    console.log('MongoDB connected');
+} catch (error) {
+    console.log(error);
+}
+
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 /// Environment variable
@@ -23,33 +37,7 @@ app.engine('handlebars', handlebars.engine())
 app.set('view engine', 'handlebars')
 app.set('views', './src/views')
 
-/*
-app.use('/', (req, res) => {
-    res.render('home', {
-        title: 'home',
-        layout: 'main',
-        layoutDir: __dirname + '/views/layouts',
-        partialsDir: __dirname + '/views/partials',
-    })
 
-    
-    res.render('addProductForm', {
-        title: 'addProductForm',
-        layout: 'main',
-        layoutDir: __dirname + '/views/layouts',
-        partialsDir: __dirname + '/views/partials',
-        product: {
-            title: 'das',
-            description: '',
-            price: '',
-            thumbnail: '',
-            code: '',
-            stock: ''
-        }  
-    })
-    
-})
-*/
 //Less info
 app.disable('x-powered-by')
 // public
