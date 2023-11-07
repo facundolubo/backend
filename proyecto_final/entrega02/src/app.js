@@ -12,8 +12,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import login_mongo from '../../../../../mongo/login_mongo.js';
 
-
-
 try {
     const client = await login_mongo();
     await client.connect();
@@ -21,7 +19,6 @@ try {
 } catch (error) {
     console.log(error);
 }
-
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -36,7 +33,6 @@ const app = express()
 app.engine('handlebars', handlebars.engine())
 app.set('view engine', 'handlebars')
 app.set('views', './src/views')
-
 
 //Less info
 app.disable('x-powered-by')

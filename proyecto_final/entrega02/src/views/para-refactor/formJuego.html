@@ -1,0 +1,104 @@
+<?php
+/<!--Se conecta a al base de datos a travez del la clase DB
+
+include_once("./estructure/header.php");
+require_once("./conexion.php");
+$conexion = new DB();
+$conexion->conectar();
+
+// *Se crea la sentencia sql y se utiliza el metodo realizarQuery para ejecutala
+
+$sql = "SELECT * FROM generos";
+$queryGenero = $conexion->realizarQuery($sql);
+$sql = "SELECT * FROM plataformas";
+$queryPlataformas = $conexion->realizarQuery($sql);
+
+/<!-- Si se extrae por metodo get el indice errors se imprimen todos los errores separando por comas los errores
+session_start();
+if (isset($_SESSION["error_message"])) {
+    $arr = explode(",", $_SESSION["error_message"]);
+    foreach ($arr as $value) {
+        if ($value != '') {
+?>
+            <div class="alert">
+                <p><?php echo ($value) ?></p>
+            </div>
+<?php
+        }
+    }
+    unset($_SESSION["error_message"]);
+}
+/<!-- Formulario de del alta juego
+?>
+<section class="add-juego">
+    <h1>AÑADIR JUEGO</h1>
+    <form id="formulario-crear" action="altaJuego.php" method="post" onsubmit="return validar(this)" class="formulario-crear" enctype="multipart/form-data">
+
+        <!-- Nombre -->
+        <div class="input-juego">
+            <label id="labelNombre">nombre *</label>
+            <input type="text" name="name" id="nombre" value="">
+            <p class="warnings" style="display:none;" id="warning1">DEBE ESCRIBIR ALGO</p>
+        </div>
+
+        <!-- Descripcion -->
+        <div class="input-juego">
+            <label>Descripcion</label>
+            <textarea id="textArea" name="descripcion" class="desc-area" rows="4" cols="50"> </textarea>
+            <p class="lenght" id="p-lenght-Desc"><span id="lenght-Desc">0</span>/255</p>
+        </div>
+
+        <!-- Genero -->
+        <div class="input-juego">
+            <label for="opciones">Genero</label>
+            <select id="opciones" name="genero">
+                <option value="">seleccione un genero</option>
+                <?php
+                while ($row = $queryGenero->fetch_assoc()) {
+                ?>
+                    <option value="<?php echo ($row["id"]); ?>"><?php echo ($row["nombre"]); ?></option>
+                <?php
+                }
+                ?>
+            </select>
+        </div>
+
+        <!-- Plataforma -->
+        <div class="input-juego">
+            <label for="opciones2" id="laberPlataforma">Plataforma *</label>
+            <p class="warnings" style="display:none;" id="warning2">DEBE ESCRIBIR ALGO</p>
+            <select id="plataforma-input" name="plataforma">
+                <option value="">Seleccione una plataforma</option>
+                <?php
+                while ($row = $queryPlataformas->fetch_assoc()) {
+                ?>
+                    <option value="<?php echo ($row["id"]); ?>"><?php echo ($row["nombre"]); ?></option>
+                <?php
+                }
+                $conexion->desconectar();
+                ?>
+            </select>
+        </div>
+
+        <!-- Url -->
+        <div class="input-juego">
+            <label>url</label>
+            <input type="text" name="url" id="url">
+            <p class="lenght" id="p-lenght-url"><span id="lenght-url">0</span>/88</p>
+        </div>
+
+        <!-- Img -->
+        <div class="input-juego">
+            <label>Imagen*</label>
+            <input type="file" id="imagen" name="imagen">
+            <p class="warnings" style="display:none; color:red" id="warning3">INGRESE UNA IMAGEN VALIDA</p>
+        </div>
+
+        <!-- Boton crear -->
+        <div class="input-juego">
+            <button type="submit" id="botonSub" class="boton-sub">CREAR</button>
+        </div>
+    </form>
+</section>
+
+<?php include_once("./estructure/footer.php"); ?>

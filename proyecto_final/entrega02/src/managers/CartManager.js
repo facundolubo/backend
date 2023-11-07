@@ -1,10 +1,8 @@
-import fs from 'fs'
 import ListCarts from './ListCarts.js'
 
 class CartManager {
-    constructor(path) {
-        this.path = '/home/facundol/Documents/Computacion/coderhouse/backend/entrega05/data/carts.json'
-        console.log('CartManager instanciado')
+    constructor() {
+
     }
 
     /* Method that gets the content of the shopping carts file returns the following.

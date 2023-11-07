@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongodb from 'mongodb'
 
 const cartCollection = "carts"
 
