@@ -1,5 +1,4 @@
 import CartManager from '../managers/CartManager.js'
-// Atento que no esta usando CartManager
 
 // Get a cart from server
 const getProductsCartFromServer = async (req, res) => {
