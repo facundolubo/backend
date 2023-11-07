@@ -5,6 +5,7 @@ const router = Router()
 
 // GET all carts /api/carts/
 router.get('/', cartController.getProductsCartFromServer)
+  
 
 // GET one cart /api/carts/:cid
 router.get('/:cid', cartController.getCartFromServer)

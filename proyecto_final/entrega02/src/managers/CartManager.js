@@ -6,6 +6,7 @@ class CartManager {
     async getAllCarts() {
         try {
             const carts = await cartModel.find();
+            console.log(typeof carts);
             return carts;
         } catch (error) {
             console.error(error);
@@ -14,8 +15,11 @@ class CartManager {
     }
 
     async getCartById(idCart) {
+        /*
+        This method search by id, not by _id
+        */
         try {
-            const cart = await cartModel.findById(idCart);
+            const cart = await cartModel.findOne({id: idCart });
             return cart;
         } catch (error) {
             console.error(error);
