@@ -1,108 +1,54 @@
-import ListCarts from './ListCarts.js'
+import cartModel from "../models/cart.model.js";
 
 class CartManager {
-    constructor() {
+    constructor() {}
 
-    }
-
-    /* Method that gets the content of the shopping carts file returns the following.
-        String - With content of the file.
-        False – If the file is not found, or if the file exists, but is empty. */
-    getContentFile = async () => {
-        let content = ""
+    async getAllCarts() {
         try {
-            content = await fs.promises.readFile(this.path, 'utf-8')
+            const carts = await cartModel.find();
+            return carts;
         } catch (error) {
-            return false
+            console.error(error);
+            return false;
         }
-        if (content === '') {
-            return false
-        }
-        return content
     }
 
-    /* Method that writes the content of the shopping cart file, returns the following.
-        True – Whether the file was successfully written to.
-        False – If there was a problem writing to the file. */
-    setContentFile = async content => {
+    async getCartById(idCart) {
         try {
-            await fs.promises.writeFile(this.path, JSON.stringify(content, null, 4))
+            const cart = await cartModel.findById(idCart);
+            return cart;
         } catch (error) {
-            return false
+            console.error(error);
+            return false;
         }
-        return true
-    }
-    
-    getAllCarts = async () => {
-        console.log('CartManager.getAllCarts')
-        const content = await this.getContentFile()
-        console.log("Content length: " + content.length)
-        if (content === false) {
-            return false
-        }
-
-        const listCart = new ListCarts()
-        listCart.setList(content)
-
-        return listCart.getList()
-    
-    }
-    /* Method that gets a shopping cart from the file, receives the id of the requested 
-    shopping cart as a parameter, returns the following.
-        An Object – If it finds the requested shopping cart.
-        Undefined – If the requested shopping cart is not found.
-        False – If the file is not found, or if the file exists, but is empty. */
-    getCartById = async idCart => {
-        idCart = parseInt(idCart)
-        const content = await this.getContentFile()
-        if (content === false) {
-            return false
-        }
-
-        const carts = new ListCarts()
-        carts.setList(content)
-
-        return carts.getElementById(idCart)
     }
 
-    /* Method that creates a new shopping cart, returns the following.
-        True – Whether the cart could be created successfully.
-        False – If there was a problem creating or registering the shopping cart. */
-    addCart = async () => {
-        const content = await this.getContentFile()
-        const carts = new ListCarts()
-
-        if (content !== false) {
-            carts.setList(content)
+    async addCart() {
+        try {
+            const newCart = new cartModel();
+            await newCart.save();
+            return true;
+        } catch (error) {
+            console.error(error);
+            return false;
         }
-
-        if (carts.addElement()) {
-            return await this.setContentFile(carts.getList())
-        }
-
-        return false
     }
 
-    /* Method that adds or updates a product to the existing shopping cart, receives the 
-    id of the shopping cart and the id of the product to add as parameters, returns the following.
-        True – Whether the product could be successfully added or updated.
-        False – If the file is not found, or if the file exists, but is empty. If the shopping 
-            cart was not found to add the product. */
-    addProductToCart = async (idCart, idProduct) => {
-        const content = await this.getContentFile()
-
-        if (content === false) {
-            return false
+    async addProductToCart(idCart, idProduct) {
+        try {
+            const cart = await cartModel.findById(idCart);
+            if (cart) {
+                cart.products.push(idProduct);
+                await cart.save();
+                return true;
+            } else {
+                return false; // Cart not found
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
         }
-
-        const carts = new ListCarts()
-        carts.setList(content)
-        if (carts.addElementByIds(idCart, idProduct)) {
-            return await this.setContentFile(carts.getList())
-        }
-
-        return false
     }
 }
 
-export default CartManager
+export default CartManager;

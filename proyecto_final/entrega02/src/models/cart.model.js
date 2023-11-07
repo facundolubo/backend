@@ -1,4 +1,5 @@
-import mongodb from 'mongodb'
+import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const cartCollection = "carts"
 
@@ -16,6 +17,7 @@ const cartSchema = new mongoose.Schema({
 })
 
 mongoose.set("strictQuery", false)
-const CartModel = mongoose.model(cartCollection, cartSchema)
+cartSchema.plugin(mongoosePaginate)
+const cartModel = mongoose.model(cartCollection, cartSchema)
 
-export default CartModel
+export default cartModel
